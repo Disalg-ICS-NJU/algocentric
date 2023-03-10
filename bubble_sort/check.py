@@ -1,5 +1,5 @@
 import bubble_sort
-
+import sys
 
 def check(oracle, to_check) -> bool:
     '''检查oracle和to_check是否完全一致.
@@ -33,6 +33,13 @@ if __name__ == '__main__':
     result = bubble_sort.bubble_sort(testcase)
     if sort_check(testcase, result):
         print('PASS')
+        print('Before optimization, critial op counts:',
+              bubble_sort.CRITICAL_OP_COUNTS)
+        if len(sys.argv)>1 and sys.argv[1]=='optimize':
+            bubble_sort.CRITICAL_OP_COUNTS = 0
+            bubble_sort.bubble_sort(testcase, True)
+            print('After optimization, critial op counts:',
+                bubble_sort.CRITICAL_OP_COUNTS)
     else:
         print('FAIL')
         print('Input :', testcase)

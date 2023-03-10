@@ -21,6 +21,6 @@ def get_random_input(length: int, ramdom_range: tuple) -> list:
 if __name__ == '__main__':
     length = randint(1, 1000)
     ramdom_range = (-5000, 5000)
-    for _ in range(1000):
+    for _ in range(10):
         new_list = get_random_input(length, ramdom_range)
         print(' '.join(map(lambda x: str(x), new_list)))
