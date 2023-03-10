@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# 
+#
 # Copyright (c) 2023 Ruize Tang <tangruize97@qq.com>, Runze Wu
 # <runzewu@smail.nju.edu.cn>.
 #
 # This file is a part of Disalg-ICS-NJU/algocentric.
-# 
-# This program is free software: you can redistribute it and/or modify  
-# it under the terms of the GNU General Public License as published by  
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, version 3.
 #
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 # General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License 
+# You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
@@ -23,7 +23,9 @@ CRITICAL_OP_COUNTS = 0
 
 
 def compare(a: int, b: int) -> bool:
-    """排序算法中的比较操作
+    """排序算法中的比较操作.
+
+    比较两元素大小, 同时记录排序算法中元素比较这一关键操作的次数, 便于性能分析.
 
     Args:
         a (int): 待比较元素a
@@ -33,7 +35,7 @@ def compare(a: int, b: int) -> bool:
         bool: 若a大于b则返回True, 否则为False
     """
     global CRITICAL_OP_COUNTS
-    CRITICAL_OP_COUNTS += 1
+    CRITICAL_OP_COUNTS += 1  # 更新比较次数
     return a > b
 
 
@@ -55,7 +57,7 @@ def bubble_sort(array: list, optimize=False) -> list:
             if compare(new_list[j], new_list[j+1]):
                 flag = True
                 new_list[j], new_list[j+1] = new_list[j+1], new_list[j]
-        if optimize and flag == False:
+        if optimize and flag == False:  # 优化版本, 当一轮没有发生交换元素时, 算法即可终止.
             break
     return new_list
 

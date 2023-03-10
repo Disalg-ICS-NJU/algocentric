@@ -1,26 +1,27 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# 
+#
 # Copyright (c) 2023 Ruize Tang <tangruize97@qq.com>, Runze Wu
 # <runzewu@smail.nju.edu.cn>.
 #
 # This file is a part of Disalg-ICS-NJU/algocentric.
-# 
-# This program is free software: you can redistribute it and/or modify  
-# it under the terms of the GNU General Public License as published by  
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, version 3.
 #
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 # General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License 
+# You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
 import bubble_sort
 import sys
+
 
 def check(oracle, to_check) -> bool:
     '''检查oracle和to_check是否完全一致.
@@ -56,11 +57,12 @@ if __name__ == '__main__':
         print('PASS')
         print('Before optimization, critial op counts:',
               bubble_sort.CRITICAL_OP_COUNTS)
-        if len(sys.argv)>1 and sys.argv[1]=='optimize':
+        if len(sys.argv) > 1 and sys.argv[1] == 'optimize':  # 启用优化冒泡排序算法
             bubble_sort.CRITICAL_OP_COUNTS = 0
             bubble_sort.bubble_sort(testcase, True)
+            # 展示优化后版本的关键比较次数
             print('After optimization, critial op counts :',
-                bubble_sort.CRITICAL_OP_COUNTS)
+                  bubble_sort.CRITICAL_OP_COUNTS)
     else:
         print('FAIL')
         print('Input :', testcase)
