@@ -17,7 +17,7 @@
 
 ## 代码示例
 
-[冒泡排序](./bubble_sort/)
+[冒泡排序](./sort/bubble_sort/)
 
 ## 授课资源
 
