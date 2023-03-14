@@ -40,8 +40,6 @@ def get_random_input(length: int, random_range: tuple) -> list:
 
 
 if __name__ == '__main__':
-    length = randint(1, 1000)
-    random_range = (-5000, 5000)
     for _ in range(10):
-        new_list = get_random_input(length, random_range)
+        new_list = get_random_input(randint(1, 1000), (-5000, 5000))
         print(' '.join(map(str, new_list)))
