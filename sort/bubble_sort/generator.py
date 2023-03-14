@@ -20,6 +20,7 @@
 #
 
 from random import randint
+import argparse
 
 
 def get_random_input(length: int, random_range: tuple) -> list:
@@ -40,6 +41,19 @@ def get_random_input(length: int, random_range: tuple) -> list:
 
 
 if __name__ == '__main__':
-    for _ in range(10):
-        new_list = get_random_input(randint(1, 1000), (-5000, 5000))
+    parser = argparse.ArgumentParser(description="Genrate random test inputs")
+    parser.add_argument('-l', dest='min_len', type=int, default=0,
+                        help="min list length")
+    parser.add_argument('-L', dest='max_len', type=int, default=1000,
+                        help="max list length")
+    parser.add_argument('-m', dest='min', type=int, default=-5000,
+                        help="min random number")
+    parser.add_argument('-M', dest='max', type=int, default=5000,
+                        help="max random number")
+    parser.add_argument(dest='num', type=int, default=10, nargs='?',
+                        help="number of test input")
+    args = parser.parse_args()
+    random_length = randint(args.min_len, args.max_len)
+    for _ in range(args.num):
+        new_list = get_random_input(random_length, (args.min, args.max))
         print(' '.join(map(str, new_list)))
