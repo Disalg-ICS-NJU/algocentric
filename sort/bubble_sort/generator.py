@@ -44,4 +44,4 @@ if __name__ == '__main__':
     random_range = (-5000, 5000)
     for _ in range(10):
         new_list = get_random_input(length, random_range)
-        print(' '.join(map(lambda x: str(x), new_list)))
+        print(' '.join(map(str, new_list)))

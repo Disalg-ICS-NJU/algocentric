@@ -19,24 +19,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-CRITICAL_OP_COUNTS = 0
-
-
-def compare(a: int, b: int) -> bool:
-    """排序算法中的比较操作.
-
-    比较两元素大小, 同时记录排序算法中元素比较这一关键操作的次数, 便于性能分析.
-
-    Args:
-        a (int): 待比较元素a
-        b (int): 待比较元素b
-
-    Returns:
-        bool: 若a大于b则返回True, 否则为False
-    """
-    global CRITICAL_OP_COUNTS
-    CRITICAL_OP_COUNTS += 1  # 更新比较次数
-    return a > b
+from critical_op import CompareOP
 
 
 def bubble_sort(array: list, optimize=False) -> list:
@@ -50,14 +33,15 @@ def bubble_sort(array: list, optimize=False) -> list:
         返回排序后的list
     '''
 
+    compare_op = CompareOP()
     new_list = list(array)
     for i in range(len(new_list)-1):
         flag = False
         for j in range(0, len(new_list)-i-1):
-            if compare(new_list[j], new_list[j+1]):
+            if compare_op(new_list[j], new_list[j+1]):
                 flag = True
                 new_list[j], new_list[j+1] = new_list[j+1], new_list[j]
-        if optimize and flag == False:  # 优化版本, 当一轮没有发生交换元素时, 算法即可终止.
+        if optimize and flag is False:  # 优化版本, 当一轮没有发生交换元素时, 算法即可终止.
             break
     return new_list
 
@@ -69,10 +53,10 @@ def get_input() -> list:
         待排序的list
     '''
 
-    return list(map(lambda x: int(x), input().split()))
+    return list(map(int, input().split()))
 
 
 if __name__ == '__main__':
     testcase = get_input()
     result = bubble_sort(testcase)
-    print(' '.join(map(lambda x: str(x), result)))
+    print(' '.join(map(str, result)))

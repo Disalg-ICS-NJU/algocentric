@@ -19,8 +19,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-import bubble_sort
 import sys
+import bubble_sort
+from critical_op import CompareOP
 
 
 def check(oracle, to_check) -> bool:
@@ -56,15 +57,15 @@ if __name__ == '__main__':
     if sort_check(testcase, result):
         print('PASS')
         print('Before optimization, critial op counts:',
-              bubble_sort.CRITICAL_OP_COUNTS)
+              CompareOP().get_op_count())
         if len(sys.argv) > 1 and sys.argv[1] == 'optimize':  # 启用优化冒泡排序算法
-            bubble_sort.CRITICAL_OP_COUNTS = 0
+            CompareOP().reset_op_count()
             bubble_sort.bubble_sort(testcase, True)
             # 展示优化后版本的关键比较次数
             print('After optimization, critial op counts :',
-                  bubble_sort.CRITICAL_OP_COUNTS)
+                  CompareOP().get_op_count())
     else:
         print('FAIL')
         print('Input :', testcase)
         print('Result:', result)
-        exit(1)
+        sys.exit(1)
