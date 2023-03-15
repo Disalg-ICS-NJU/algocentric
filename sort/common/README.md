@@ -13,5 +13,5 @@ import os
 # 将sort目录放入python搜索路径中, 使得下面的 from common import ... 能成功执行.
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from common import get_input, compare_op  # noqa
+from common import get_input, compare_op  # pylint: disable=wrong-import-position # noqa
 ```
