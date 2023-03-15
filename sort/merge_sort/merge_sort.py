@@ -27,30 +27,35 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common import get_input, compare_op  # noqa
 
 
-def bubble_sort(array: list, optimize=False) -> list:
-    '''冒泡排序算法.
+def merge_sort(array: list) -> list:
+    '''归并排序算法.
 
     Args:
         array (list): 未排序的list
-        optimize (bool, optional): 是否为优化冒泡排序算法. 默认为无优化版本
 
     Returns:
         返回排序后的list
     '''
 
-    new_list = list(array)
-    for i in range(len(new_list)-1):
-        flag = False
-        for j in range(0, len(new_list)-i-1):
-            if compare_op(new_list[j], new_list[j+1]):
-                flag = True
-                new_list[j], new_list[j+1] = new_list[j+1], new_list[j]
-        if optimize and flag is False:  # 优化版本, 当一轮没有发生交换元素时, 算法即可终止.
-            break
+    num = len(array)
+    if num <= 1:
+        return list(array)
+    left = merge_sort(array[:num//2])
+    right = merge_sort(array[num//2:])
+    new_list = []
+    i, j = 0, 0
+    while i < len(left) and j < len(right):
+        if compare_op(left[i], right[j]):
+            new_list.append(right[j])
+            j += 1
+        else:
+            new_list.append(left[i])
+            i += 1
+    new_list += left[i:] + right[j:]
     return new_list
 
 
 if __name__ == '__main__':
     testcase = get_input()
-    result = bubble_sort(testcase)
+    result = merge_sort(testcase)
     print(' '.join(map(str, result)))

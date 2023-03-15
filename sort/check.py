@@ -20,8 +20,8 @@
 #
 
 import sys
-import bubble_sort
-from critical_op import CompareOP
+import argparse
+from common import get_input, compare_op
 
 
 def check(oracle, to_check) -> bool:
@@ -52,18 +52,24 @@ def sort_check(array: list, to_check: list) -> bool:
 
 
 if __name__ == '__main__':
-    testcase = bubble_sort.get_input()
-    result = bubble_sort.bubble_sort(testcase)
+    parser = argparse.ArgumentParser(description="Test sort algorithm")
+    parser.add_argument('-o', dest='optimize', action='store_true',
+                        help="enable optimization for bubble_sort")
+    parser.add_argument(dest='target', default='bubble_sort', nargs='?',
+                        help="target dir")
+    args = parser.parse_args()
+    if args.target == 'bubble_sort':
+        import bubble_sort
+        from functools import partial
+        sort = partial(bubble_sort.sort, optimize=args.optimize)
+    else:
+        sort = __import__(args.target).sort
+
+    testcase = get_input()
+    result = sort(testcase)
     if sort_check(testcase, result):
         print('PASS')
-        print('Before optimization, critial op counts:',
-              CompareOP().get_op_count())
-        if len(sys.argv) > 1 and sys.argv[1] == 'optimize':  # 启用优化冒泡排序算法
-            CompareOP().reset_op_count()
-            bubble_sort.bubble_sort(testcase, True)
-            # 展示优化后版本的关键比较次数
-            print('After optimization, critial op counts :',
-                  CompareOP().get_op_count())
+        print('Critical op counts:', compare_op.get_op_count())
     else:
         print('FAIL')
         print('Input :', testcase)

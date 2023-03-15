@@ -25,22 +25,24 @@ class CriticalOP():
     例如排序算法中, 我们要进行两个元素的比较; 之后学到的图算法中, 往往涉及对节点或边的染色等等
     这类操作通常决定了算法的时间复杂度, 我们通过该类来维护算法关键操作的次数.
     '''
-    op_count = 0
+
+    def __init__(self):
+        self.op_count = 0
 
     def get_op_count(self) -> int:
         '''获取关键操作的次数
         '''
-        return CriticalOP.op_count
+        return self.op_count
 
     def incr_op_count(self):
         '''增加关键操作的次数
         '''
-        CriticalOP.op_count += 1
+        self.op_count += 1
 
     def reset_op_count(self):
         '''重置关键操作的次数
         '''
-        CriticalOP.op_count = 0
+        self.op_count = 0
 
 
 class CompareOP(CriticalOP):
@@ -64,3 +66,6 @@ class CompareOP(CriticalOP):
         '''
         self.incr_op_count()
         return elem_a > elem_b
+
+
+compare_op = CompareOP()
