@@ -1,3 +1,4 @@
+SHELL = /bin/bash
 TARGET ?= bubble_sort
 NUM ?= 10
 
