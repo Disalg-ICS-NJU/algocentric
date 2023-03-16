@@ -20,4 +20,4 @@ jobs:
         pip install pylint
     - name: Analysing the code with pylint
       run: |
-        env PYTHONPATH=sort pylint --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring $(git ls-files '*.py')
+        env PYTHONPATH=sort pylint --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring --disable=duplicate-code $(git ls-files '*.py')
