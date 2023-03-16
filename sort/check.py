@@ -51,6 +51,24 @@ def sort_check(array: list, to_check: list) -> bool:
     return check(oracle, to_check)
 
 
+def count_inv_check(array: list, to_check: int) -> bool:
+    '''检查to_check是否为array中的逆序对个数
+
+    Args:
+        array (list): 未排序的原始输入list
+        to_check (int): 待比对的逆序对个数
+
+    Returns:
+        to_check是否为array中的逆序对个数
+    '''
+    oracle = 0
+    for i in range(len(array)-1):
+        for j in range(i+1, len(array)):
+            if array[i] > array[j]:
+                oracle += 1
+    return check(oracle, to_check)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Test sort algorithm")
     parser.add_argument('-o', dest='optimize', action='store_true',
@@ -58,16 +76,21 @@ if __name__ == '__main__':
     parser.add_argument(dest='target', default='bubble_sort', nargs='?',
                         help="target dir")
     args = parser.parse_args()
-    if args.target == 'bubble_sort':
-        import bubble_sort
-        from functools import partial
-        sort = partial(bubble_sort.sort, optimize=args.optimize)
+    if args.target == 'counting_inversion':
+        target_alg = __import__(args.target).count_inv
+        target_check = count_inv_check
     else:
-        sort = __import__(args.target).sort
+        if args.target == 'bubble_sort':
+            import bubble_sort
+            from functools import partial
+            target_alg = partial(bubble_sort.sort, optimize=args.optimize)
+        else:
+            target_alg = __import__(args.target).sort
+        target_check = sort_check
 
     testcase = get_input()
-    result = sort(testcase)
-    if sort_check(testcase, result):
+    result = target_alg(testcase)
+    if target_check(testcase, result):
         print('PASS')
         print('Critical op counts:', compare_op.get_op_count())
     else:
