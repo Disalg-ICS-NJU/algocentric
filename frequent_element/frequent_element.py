@@ -57,9 +57,11 @@ def frequent_element(array: list, k: int) -> list:
     '''
     if len(array) <= 1:
         return list(array)
-    if k == 2:
+    if k == 2:  # 对于k=2的情况, 我们实现了摩尔投票算法来单独处理
         return find_majority(array)
 
+    # 对于k>2的一般情况, 具体算法还未实现
+    # 尝试使用分治思想去解决问题
     assert False, "k>2 cases have not implemented!"
     ans = []
     return sorted(ans)
