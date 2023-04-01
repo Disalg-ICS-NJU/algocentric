@@ -55,15 +55,26 @@ def frequent_element(array: list, k: int) -> list:
     Returns:
         list: 所有常见元素的有序序列
     '''
-    if len(array) <= 1:
-        return list(array)
+    if k <= 0:
+        assert False, "k should be positive number!"
+    if len(array) <= k:
+        return sorted(set(array))
     if k == 2:  # 对于k=2的情况, 我们实现了摩尔投票算法来单独处理
         return find_majority(array)
 
-    # 对于k>2的一般情况, 具体算法还未实现
-    # 尝试使用分治思想去解决问题
-    assert False, "k>2 cases have not implemented!"
-    ans = []
+    # 对于k>2的一般情况, 采取分治思想
+    # 局部常见元素可能为全局常见元素
+    # 而局部不常见则必不是全局常见
+    ans = set()
+    mid = len(array)//2+1
+
+    left = frequent_element(array[:mid], k)
+    right = frequent_element(array[mid:], k)
+
+    for elem in left+right:
+        if count_frequent(array, elem) >= len(array)//k+1:
+            ans.add(elem)
+
     return sorted(ans)
 
 
