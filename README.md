@@ -17,9 +17,10 @@
 
 ## 代码示例
 
-[冒泡排序](./sort/bubble_sort/)
-[归并排序](./sort/merge_sort/)
-[逆序对计数](./sort/counting_inversion/)
+[冒泡排序](./sort/bubble_sort/)  
+[归并排序](./sort/merge_sort/)  
+[逆序对计数](./sort/counting_inversion/)  
+[常见元素寻找](./frequent_element/)
 
 ## 授课资源
 
