@@ -19,10 +19,10 @@
 #
 
 def get_input() -> tuple[list, int]:
-    '''从标准输入获取待排序的list, 输入为一行由空格隔开的待排序整数
+    '''从标准输入获取输入, 共两行内容, 第一行为由空格分隔的整数序列, 第二行为k值
 
     Returns:
-        待排序的list
+        返回整数序列和k值
     '''
     array = list(map(int, input().split()))
     k = int(input())
