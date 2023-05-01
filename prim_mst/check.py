@@ -23,6 +23,7 @@ import sys
 from collections import defaultdict
 from get_input import get_input  # pylint: disable=wrong-import-position # noqa
 from node import Node  # pylint: disable=wrong-import-position # noqa
+from critical_op import compare_op  # pylint: disable=wrong-import-position # noqa
 from prim_mst import prim
 
 
@@ -90,7 +91,7 @@ if __name__ == '__main__':
     result = prim(testcase[0], testcase[1])
     if mst_weight_check(testcase[0], testcase[1], result):
         print('PASS')
-        # print('Critical op counts:', equal_op.get_op_count())
+        print('Critical op counts:', compare_op.get_op_count())
     else:
         print('FAIL')
         print('Input :', testcase)

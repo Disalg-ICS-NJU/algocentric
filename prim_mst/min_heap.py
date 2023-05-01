@@ -20,6 +20,7 @@
 #
 
 from node import Node
+from critical_op import compare_op  # pylint: disable=wrong-import-position # noqa
 
 
 class MinHeap:
@@ -68,7 +69,7 @@ class MinHeap:
         index = self.node_pos[node_id]  # 找到节点当前在堆中位置
         cur_node = self.heap[index]
         assert isinstance(cur_node, Node) and cur_node.node_id == node_id
-        if weight < cur_node.weight:
+        if compare_op(cur_node.weight, weight):
             self.heap[index] = node  # 更新节点权重
             self._heapify_up(index)  # 向上调整堆结构
 
@@ -90,7 +91,8 @@ class MinHeap:
 
     def _heapify_up(self, index):
         '''向上调整堆'''
-        while index > 0 and self.heap[index] < self.heap[self.parent(index)]:
+        while index > 0 and \
+                compare_op(self.heap[self.parent(index)], self.heap[index]):
             self._swap_node(index, self.parent(index))
             index = self.parent(index)
 
@@ -98,10 +100,12 @@ class MinHeap:
         '''向下调整堆'''
         min_index = index
         left = self.left_child(index)
-        if left < len(self.heap) and self.heap[left] < self.heap[min_index]:
+        if left < len(self.heap) and \
+                compare_op(self.heap[min_index], self.heap[left]):
             min_index = left
         right = self.right_child(index)
-        if right < len(self.heap) and self.heap[right] < self.heap[min_index]:
+        if right < len(self.heap) and \
+                compare_op(self.heap[min_index], self.heap[right]):
             min_index = right
         if index != min_index:
             self._swap_node(index, min_index)
