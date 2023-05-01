@@ -1,0 +1,38 @@
+SHELL = /bin/bash
+NUM ?= 100
+NODE ?= 100
+EDGE ?= 5000
+
+run:
+	python3 ./prim_mst.py
+
+test:
+	python3 ./check.py
+
+
+test_no_input:
+	@python3 ./generator.py -n $(NODE) -N $(NODE) -m $(EDGE) -M $(EDGE) $(NUM) \
+	| while read n m; do \
+		(echo "$$n $$m"; \
+		for ((i=1; i<=$$m; i++)); do \
+			read line1; \
+			echo "$$line1"; \
+		done) \
+		| python3 ./check.py ; \
+		echo ----; \
+	done
+
+random_test:
+	@time python3 ./generator.py  $(NUM) \
+	| while read n m; do \
+		result=$$((echo "$$n $$m"; \
+		for ((i=1; i<=$$m; i++)); do \
+			read line1; \
+			echo "$$line1"; \
+		done) | python3 ./check.py); \
+		if test "$$?" -ne 0; then \
+			echo "$$result"; \
+			exit 1; \
+		fi; \
+		echo -n .; \
+	done
