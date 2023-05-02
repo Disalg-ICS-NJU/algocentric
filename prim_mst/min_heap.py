@@ -20,7 +20,7 @@
 #
 
 from node import Node
-from critical_op import compare_op  # pylint: disable=wrong-import-position # noqa
+from critical_op import compare_op  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 
 
 class MinHeap:
