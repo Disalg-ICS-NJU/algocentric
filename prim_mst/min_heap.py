@@ -127,7 +127,7 @@ class MinHeap:
 
 
 if __name__ == '__main__':
-    heap = MinHeap()
+    heap = MinHeap(100)
     heap.insert(Node(5, 1, 5))
     heap.insert(Node(4, 1, 4))
     heap.insert(Node(3, 1, 3))
