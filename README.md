@@ -20,7 +20,8 @@
 [冒泡排序](./sort/bubble_sort/)  
 [归并排序](./sort/merge_sort/)  
 [逆序对计数](./sort/counting_inversion/)  
-[常见元素寻找](./frequent_element/)
+[常见元素寻找](./frequent_element/)  
+[最小生成树Prim算法](./prim_mst/)
 
 ## 授课资源
 
