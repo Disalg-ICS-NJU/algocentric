@@ -30,9 +30,12 @@ class MinHeap:
     为了保证decrease_key操作在O(log n)时间完成, 我们维护了节点到堆中对应位置的映射.
     '''
 
-    def __init__(self):
-        self.heap = []  # 采用数组存储堆
-        self.node_pos = {}  # 采用字典结构记录节点id对应的数组下标, 访问存取均为O(1)
+    def __init__(self, node_num: int):
+        '''堆和位置映射初始化'''
+        # 采用数组存储堆
+        self.heap = []
+        # 采用数组结构记录节点id对应在堆中数组的下标, 访问存取均为O(1)
+        self.node_pos = [-1 for _ in range(node_num)]  # 下标初始化为-1, 表示尚未加入堆
 
     def __len__(self):
         return len(self.heap)
@@ -57,7 +60,7 @@ class MinHeap:
 
     def insert(self, node: Node):
         '''插入节点node到最小堆中'''
-        assert node.node_id not in self.node_pos  # 节点之前必须不在堆中
+        assert self.node_pos[node.node_id] == -1  # 节点之前必须不在堆中
         self.heap.append(node)
         self.node_pos[node.node_id] = len(self.heap) - 1
         self._heapify_up(len(self.heap) - 1)
@@ -65,7 +68,7 @@ class MinHeap:
     def decrease_key(self, node: Node):
         '''更新节点node在堆中的权重'''
         node_id, weight = node.node_id, node.weight
-        assert node_id in self.node_pos  # 节点之前必须在堆中
+        assert self.node_pos[node.node_id] != -1  # 节点之前必须在堆中
         index = self.node_pos[node_id]  # 找到节点当前在堆中位置
         cur_node = self.heap[index]
         assert isinstance(cur_node, Node) and cur_node.node_id == node_id
@@ -85,8 +88,8 @@ class MinHeap:
             self.heap[0] = last_node
             self.node_pos[last_node.node_id] = 0
             self._heapify_down(0)
-        assert min_node.node_id in self.node_pos
-        del self.node_pos[min_node.node_id]  # 删除被弹出节点的位置映射
+        assert self.node_pos[min_node.node_id] != -1
+        self.node_pos[min_node.node_id] = -1  # 删除被弹出节点的位置映射
         return min_node
 
     def _heapify_up(self, index):

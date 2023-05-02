@@ -51,7 +51,7 @@ def prim(node_num: int, edges: list[tuple]) -> int:
     total_weight = 0  # mst的权重
     mst_node = {0}  # 当前mst中具有的节点
 
-    heap = MinHeap()
+    heap = MinHeap(node_num)
     for neighbor in adjacent_dict[start]:
         heap.insert(neighbor)
         visited[neighbor.node_id] = True
