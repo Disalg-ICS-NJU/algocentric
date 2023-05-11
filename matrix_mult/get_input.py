@@ -19,11 +19,11 @@
 #
 
 def get_input() -> (int, list):
-    '''从标准输入获取输入, 共两行内容, 第一行为n值, 第二行为由空格分隔的整数序列
+    '''从标准输入获取输入, 共两行内容, 第一行为k值, 第二行为由空格分隔的整数序列
 
     Returns:
         返回n值和整数序列
     '''
-    n = int(input())
+    k = int(input())
     array = list(map(int, input().split()))
-    return n, array
+    return k, array

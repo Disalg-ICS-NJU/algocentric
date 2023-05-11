@@ -21,7 +21,7 @@
 
 import sys
 from get_input import get_input  # pylint: disable=wrong-import-position # noqa
-from critical_op import mult_cost  # pylint: disable=wrong-import-position # noqa
+from critical_op import mult_cost  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 from matrix_mult import matrix_mult_dp
 
 
@@ -51,11 +51,11 @@ def matrix_mult_check(dime_list: list, to_check: int) -> bool:
     return check(matrix_mult_bf(dime_list), to_check)
 
 def matrix_mult_bf(dime_list: list) -> int:
-    n = len(dime_list) - 1
-    if n <= 1:
+    k = len(dime_list) - 1
+    if k <= 1:
         return 0
     cost = float('inf')
-    for i in range(1, n):
+    for i in range(1, k):
         cost1 = dime_list[i-1] * dime_list[i] * dime_list[i+1]
         new_list = dime_list.copy()
         new_list.pop(i)

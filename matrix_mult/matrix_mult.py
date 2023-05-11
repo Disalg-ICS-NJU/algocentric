@@ -22,57 +22,57 @@
 import os
 import sys
 
-# 将sort目录放入python搜索路径中, 使得下面的 from ... import ... 能成功执行.
+# 将matrix目录放入python搜索路径中, 使得下面的 from ... import ... 能成功执行.
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from get_input import get_input  # pylint: disable=wrong-import-position # noqa
-from critical_op import mult_cost  # pylint: disable=wrong-import-position # noqa
+from critical_op import mult_cost  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 
 
-def matrix_mult_dp(n: int, dime_list: list) -> (str, int):
+def matrix_mult_dp(k: int, dime_list: list) -> (str, int):
     '''计算矩阵连乘结果.
 
     Args:
-        n (int): 矩阵个数
+        k (int): 矩阵个数
         dime_list (list): 给定矩阵信息list
 
     Returns:
         返回最优顺序连乘和最小结果
     '''
-    cost = [[0 for _ in range(n + 1)] for _ in range(n + 1)]
-    last = [[0 for _ in range(n + 1)] for _ in range(n + 1)]
-    for low in range(n - 1, -1, -1):
-        for high in range(low + 1, n + 1):
+    cost = [[0 for _ in range(k + 1)] for _ in range(k + 1)]
+    last = [[0 for _ in range(k + 1)] for _ in range(k + 1)]
+    for low in range(k - 1, -1, -1):
+        for high in range(low + 1, k + 1):
             if high - low == 1:
                 best_cost = 0
                 best_last = -1
             else:
                 best_cost = float('inf')
                 best_last = low
-            for k in range(low + 1, high):
-                a = cost[low][k]
-                b = cost[k][high]
-                c = mult_cost(dime_list[low], dime_list[k], dime_list[high])
-                if a + b + c < best_cost:
-                    best_cost = a + b + c
-                    best_last = k
+            for mid in range(low + 1, high):
+                cost0 = cost[low][k]
+                cost1 = cost[k][high]
+                cost2 = mult_cost(dime_list[low], dime_list[mid], dime_list[high])
+                if cost0 + cost1 + cost2 < best_cost:
+                    best_cost = cost0 + cost1 + cost2
+                    best_last = mid
             cost[low][high] = best_cost
             last[low][high] = best_last
-    return extract_order(last, n), cost[0][n]
+    return extract_order(last, k), cost[0][k]
 
 
-def extract_order(last: list, n: int) -> str:
+def extract_order(last: list, k: int) -> str:
     '''求连乘顺序.
 
     Args:
         last (list): DP计算结果
-        n (int): 矩阵个数n
+        k (int): 矩阵个数n
 
     Returns:
         list: 最终连乘顺序
     '''
     que_mult_order = ""
-    que_mult_order = extract(que_mult_order, last, 0, n)
+    que_mult_order = extract(que_mult_order, last, 0, k)
     return que_mult_order
 
 
@@ -95,7 +95,7 @@ def extract(que_mult_order: str, last: list, low: int, high: int) -> str:
         que_mult_order = extract(que_mult_order, last, k, high)
         que_mult_order += ')'
     else:
-        que_mult_order += 'A[{}]'.format(low)
+        que_mult_order += 'A[' + str(low) + ']'
     return que_mult_order
 
 
