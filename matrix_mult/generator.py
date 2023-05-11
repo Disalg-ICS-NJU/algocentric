@@ -23,18 +23,18 @@ from random import randint
 import argparse
 
 
-def get_random_input(n: int, random_range: tuple) -> list:
+def get_random_input(k: int, random_range: tuple) -> list:
     '''获取随机数list
 
     Args:
-        n (int): 矩阵个数
+        k (int): 矩阵个数
         random_range (tuple): 随机数的大小范围
 
     Returns:
         随机数n和随机数list
     '''
     random_list = []
-    for _ in range(n+1):
+    for _ in range(k + 1):
         random_list.append(randint(*random_range))
     return random_list
 
