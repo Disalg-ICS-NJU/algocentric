@@ -50,8 +50,8 @@ def matrix_mult_dp(k: int, dime_list: list) -> (str, int):
                 best_cost = float('inf')
                 best_last = low
             for mid in range(low + 1, high):
-                cost0 = cost[low][k]
-                cost1 = cost[k][high]
+                cost0 = cost[low][mid]
+                cost1 = cost[mid][high]
                 cost2 = mult_cost(dime_list[low], dime_list[mid], dime_list[high])
                 if cost0 + cost1 + cost2 < best_cost:
                     best_cost = cost0 + cost1 + cost2
