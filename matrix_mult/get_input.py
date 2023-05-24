@@ -18,7 +18,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-def get_input() -> (int, list):
+def get_input() -> tuple[int, list]:
     '''从标准输入获取输入, 共两行内容, 第一行为k值, 第二行为由空格分隔的整数序列
 
     Returns:

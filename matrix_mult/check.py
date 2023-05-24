@@ -50,6 +50,7 @@ def matrix_mult_check(dime_list: list, to_check: int) -> bool:
     '''
     return check(matrix_mult_bf(dime_list), to_check)
 
+
 def matrix_mult_bf(dime_list: list) -> int:
     k = len(dime_list) - 1
     if k <= 1:
@@ -62,6 +63,7 @@ def matrix_mult_bf(dime_list: list) -> int:
         cost2 = matrix_mult_bf(new_list)
         cost = min(cost, cost1 + cost2)
     return cost
+
 
 if __name__ == '__main__':
     testcase = get_input()

@@ -29,7 +29,7 @@ from get_input import get_input  # pylint: disable=wrong-import-position # noqa
 from critical_op import mult_cost  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 
 
-def matrix_mult_dp(k: int, dime_list: list) -> (str, int):
+def matrix_mult_dp(k: int, dime_list: list) -> tuple[str, int]:
     '''计算矩阵连乘结果.
 
     Args:
@@ -52,7 +52,8 @@ def matrix_mult_dp(k: int, dime_list: list) -> (str, int):
             for mid in range(low + 1, high):
                 cost0 = cost[low][mid]
                 cost1 = cost[mid][high]
-                cost2 = mult_cost(dime_list[low], dime_list[mid], dime_list[high])
+                cost2 = mult_cost(
+                    dime_list[low], dime_list[mid], dime_list[high])
                 if cost0 + cost1 + cost2 < best_cost:
                     best_cost = cost0 + cost1 + cost2
                     best_last = mid
