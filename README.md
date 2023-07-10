@@ -26,4 +26,4 @@
 
 ## 授课资源
 
-[《算法设计与分析》课程材料](https://www.bilibili.com/read/cv21897784)
+[《算法设计与分析》课程材料](https://zhuanlan.zhihu.com/p/106049035)
