@@ -22,7 +22,7 @@
 [逆序对计数](./sort/counting_inversion/)  
 [常见元素寻找](./frequent_element/)  
 [最小生成树Prim算法](./prim_mst/)  
-[矩阵相乘](./matrix_mult/)
+[矩阵相乘](./matrix_mult/)  
 [有向图单源最短路](./dijkstra/)
 
 ## 授课资源
