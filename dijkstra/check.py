@@ -20,12 +20,10 @@
 #
 
 import sys
-from collections import defaultdict
 from get_input import get_input  # pylint: disable=wrong-import-position # noqa
-from node import Node  # pylint: disable=wrong-import-position # noqa
 from critical_op import compare_op  # pylint: disable=wrong-import-position, no-name-in-module # noqa
+from bellmanford import bellman_ford
 from dijkstra import dijkstra
-from bellmanford import Bellman_ford
 
 
 def check(oracle, to_check) -> bool:
@@ -40,23 +38,22 @@ def check(oracle, to_check) -> bool:
     '''
     if len(oracle)!=len(to_check):
         return False
-    for _ in range(0,len(oracle)):
-        if oracle[_]!=to_check[_]:
-            return False
+    if oracle!=to_check:
+        return False
     return True
 
 
 if __name__ == '__main__':
     testcase = get_input()
     result = dijkstra(testcase[0], testcase[1], testcase[2])
-    ref = Bellman_ford(testcase[0],testcase[1],testcase[2])
-    
+    ref = bellman_ford(testcase[0],testcase[1],testcase[2])
+
     if check(ref, result):
         print('PASS')
         print('Critical op counts:', compare_op.get_op_count())
     else:
         print('FAIL')
         print('Input :', testcase)
-        for i in range(0,len(result)):
+        for i in range(len(result)):
             print(ref[i],result[i])
         sys.exit(1)

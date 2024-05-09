@@ -78,9 +78,8 @@ def get_random_graph(node_num: int, edge_num: int, min_w: int, max_w: int) \
 
     return edges
 
-def get_negative_edges(node_num: int,edge_list: list) \
+def get_negative_edges(node_num: int,edges: list) \
     -> list:
-    edges=edge_list
     # 随机生成负权环的顶点
     cycle_nodes=sample(range(0, node_num),2)
     node_1=cycle_nodes[0]
@@ -91,9 +90,8 @@ def get_negative_edges(node_num: int,edge_list: list) \
 
     return edges
 
-def get_negative_cycle(node_num: int,edge_list: list) \
+def get_negative_cycle(node_num: int,edges: list) \
     -> list:
-    edges=edge_list
     # 随机生成负权环的顶点
     cycle_nodes=sample(range(0, node_num), randint(3,node_num))
     node_1=cycle_nodes[-1]
@@ -110,27 +108,27 @@ def get_negative_cycle(node_num: int,edge_list: list) \
     return edges
 
 def get_random_input(node_num: int, edge_num: int,
-                     has_negative_edges: bool = False, 
+                     has_negative_edges: bool = False,
                      has_negative_cycle: bool = False) \
         -> list:
-    
+
     min_weight=2
     max_weight=20
     #先生成一个不含负权边的无向连通图
-    edge_list = get_random_graph(node_num, edge_num, min_weight, max_weight)
+    edges = get_random_graph(node_num, edge_num, min_weight, max_weight)
 
     if has_negative_cycle:
-        edge_list= get_negative_cycle(node_num,edge_list)
+        edges= get_negative_cycle(node_num,edges)
     elif has_negative_edges:
-        edge_list= get_negative_edges(node_num,edge_list)
+        edges= get_negative_edges(node_num,edges)
 
-    edges= []
+    result_edgeslist= []
     for i in range(0,node_num):
         for j in range(0,node_num):
-            if edge_list[i][j]:
-                edges.append((i,j,edge_list[i][j]))
-    return edges
-    
+            if edges[i][j]:
+                result_edgeslist.append((i,j,edges[i][j]))
+    return result_edgeslist
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Genrate random test inputs")
@@ -144,15 +142,17 @@ if __name__ == '__main__':
                         help="max edge number")
     parser.add_argument(dest='num', type=int, default=1, nargs='?',
                         help="number of test input")
-    parser.add_argument("--has_negative_edges", action="store_true", 
+    parser.add_argument("--has_negative_edges", action="store_true",
                         help="Whether the graph can have negative edges")
-    parser.add_argument("--has_negative_cycle", action="store_true", 
+    parser.add_argument("--has_negative_cycle", action="store_true",
                         help="Whether the graph can have negative cycles")
 
     args = parser.parse_args()
     for _ in range(args.num):
         node_number = randint(args.min_node, args.max_node)
-        edge_number = randint(max(args.min,node_number-1),min(args.max,node_number*(node_number-1)/2-1))
+        min_edge_number = max(args.min,node_number)
+        max_edge_number = min(min_edge_number+1,args.max,node_number*(node_number-1)/2)
+        edge_number = randint(min_edge_number,max_edge_number)
         edge_list = get_random_input(
             node_number, edge_number, args.has_negative_edges, args.has_negative_cycle)
         print(node_number, len(edge_list),randint(1,node_number-1))

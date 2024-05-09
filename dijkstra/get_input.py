@@ -29,5 +29,5 @@ def get_input() -> tuple[int, int, list[tuple]]:
     edges = []
     for _ in range(edge_num):
         edges.append(tuple(map(int, input().split())))
-    
+
     return node_num, start, edges
