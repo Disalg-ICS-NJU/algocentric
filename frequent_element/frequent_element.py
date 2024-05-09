@@ -25,7 +25,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from get_input import get_input  # pylint: disable=wrong-import-position # noqa
-from critical_op import equal_op  # pylint: disable=wrong-import-position # noqa
+from critical_op import equal_op  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 
 
 def count_frequent(array: list, target: int) -> int:

@@ -22,7 +22,7 @@
 import sys
 from collections import Counter
 from get_input import get_input  # pylint: disable=wrong-import-position # noqa
-from critical_op import equal_op  # pylint: disable=wrong-import-position # noqa
+from critical_op import equal_op  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 from frequent_element import frequent_element
 
 

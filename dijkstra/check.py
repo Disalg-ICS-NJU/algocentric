@@ -54,6 +54,6 @@ if __name__ == '__main__':
     else:
         print('FAIL')
         print('Input :', testcase)
-        for i in range(len(result)):
-            print(ref[i],result[i])
+        for i, j in zip(ref, result):
+            print(i, j)
         sys.exit(1)
