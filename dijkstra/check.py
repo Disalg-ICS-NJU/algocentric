@@ -24,7 +24,7 @@ from get_input import get_input  # pylint: disable=wrong-import-position # noqa
 from critical_op import compare_op  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 from bellmanford import bellman_ford
 
-USE_NEGATIVE_EDGES = False
+USE_NEGATIVE_EDGES = True
 
 if USE_NEGATIVE_EDGES:
     from dijkstra_with_neg_edge import dijkstra

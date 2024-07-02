@@ -58,7 +58,7 @@ def dijkstra(node_num: int,start: int, edges: list[tuple]) -> int:
         heap.insert(neighbor)
         visited[neighbor.node_id] = True
 
-    while compare_op(len(heap) , 0) and compare_op(node_num,len(dij_node)):
+    while len(heap) > 0:
         node = heap.extract_min()
         dij_node.add(node.node_id)  # 该节点加入dij_node
         results[node.node_id]=node.dist
@@ -68,10 +68,10 @@ def dijkstra(node_num: int,start: int, edges: list[tuple]) -> int:
                 heap.insert(neighbor)
                 visited[neighbor.node_id] = True
             elif neighbor.node_id not in dij_node:  # 节点在Fringe中, 考虑更新其权重
-                if compare_op(neighbor.dist,neighbor.weight+results[neighbor.point_to]):
+                if neighbor.dist>neighbor.weight+results[neighbor.point_to]:
                     neighbor.dist=neighbor.weight+results[neighbor.point_to]
                     heap.decrease_key(neighbor)
-            elif compare_op(results[neighbor.node_id],neighbor.weight+results[neighbor.point_to]):
+            elif results[neighbor.node_id]>neighbor.weight+results[neighbor.point_to]:
                 neighbor.dist=neighbor.weight+results[neighbor.point_to]
                 if heap.node_pos[neighbor.node_id]==-1:
                     heap.insert(neighbor)
