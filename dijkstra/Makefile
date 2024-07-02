@@ -1,7 +1,7 @@
 SHELL = /bin/bash
 NUM ?= 100
 NODE ?= 100
-EDGE ?= 5000
+EDGE ?= 500
 
 run:
 	python3 ./dijkstra.py
@@ -11,7 +11,7 @@ test:
 
 
 test_no_input:
-	@python3 ./generator.py -n $(NODE) -N $(NODE) $(NUM) \
+	@python3 ./generator.py -n $(NODE) -N $(NODE) -m $(EDGE) -M $(EDGE) $(NUM) --has_negative_edges\
 	| while read n m s; do \
 		(echo "$$n $$m $$s "; \
 		for ((i=1; i<=$$m; i++)); do \

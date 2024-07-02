@@ -23,7 +23,13 @@ import sys
 from get_input import get_input  # pylint: disable=wrong-import-position # noqa
 from critical_op import compare_op  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 from bellmanford import bellman_ford
-from dijkstra import dijkstra
+
+USE_NEGATIVE_EDGES = True
+
+if USE_NEGATIVE_EDGES:
+    from dijkstra_with_neg_edge import dijkstra
+else:
+    from dijkstra import dijkstra
 
 
 def check(oracle, to_check) -> bool:
@@ -36,6 +42,8 @@ def check(oracle, to_check) -> bool:
     Returns:
         oracle是否与to_check完全一致的检查结果
     '''
+    if oracle is None:
+        return False
     if len(oracle)!=len(to_check):
         return False
     if oracle!=to_check:
@@ -50,10 +58,13 @@ if __name__ == '__main__':
 
     if check(ref, result):
         print('PASS')
-        print('Critical op counts:', compare_op.get_op_count())
+        print('Critical op counts in Dijkstra:', compare_op.get_op_count())
     else:
         print('FAIL')
         print('Input :', testcase)
+        if ref is None:
+            print("检测到负权环")
+            sys.exit(1)
         for i, j in zip(ref, result):
             print(i, j)
         sys.exit(1)

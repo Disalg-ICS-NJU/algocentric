@@ -48,9 +48,7 @@ class Graph:
         # 检查负权环
         for vertice, point_to, weight in self.graph:
             if dist[vertice] != 0x7fffffff and dist[vertice] + weight < dist[point_to]:
-                print("图中存在负权环")
-                return dist
-
+                return None
         # 如果不存在负权环，则打印最短路径
         return dist
 
@@ -66,5 +64,8 @@ def bellman_ford(node_num: int,src: int,edges: list[tuple]):
 
 if __name__ == '__main__':
     testcase = get_input()
-    result = bellman_ford(testcase[0], testcase[1], testcase[2])
-    print(*result)
+    result,opcnt = bellman_ford(testcase[0], testcase[1], testcase[2])
+    if result is None:
+        print("检测到负权环")
+    else:
+        print("源点到所有点的最短路径距离：", result)
