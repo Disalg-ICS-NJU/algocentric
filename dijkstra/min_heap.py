@@ -40,7 +40,6 @@ class MinHeap:
     def __len__(self):
         return len(self.heap)
 
-# pylint: disable=no-self-use
     def parent(self, index) -> int:
         '''对应下标的父节点'''
         return (index - 1) // 2
@@ -52,7 +51,6 @@ class MinHeap:
     def right_child(self, index) -> int:
         '''对应下标的右子节点'''
         return 2 * index + 2
-# pylint: enable=no-self-use
 
     def get_min(self) -> (Node | None):
         '''返回最小堆的堆顶元素'''
