@@ -130,3 +130,9 @@ dmypy.json
 
 # VS code
 .vscode/
+
+# MacOS
+.DS_Store
+
+#JetBrains IDEs
+.idea/
