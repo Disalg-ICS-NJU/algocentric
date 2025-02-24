@@ -22,11 +22,11 @@
 import os
 import sys
 from typing import List
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from point import Point
 from get_input import get_input
 from critical_op import distance_op
-
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 
 def brute_force(array: List[Point]) -> float:
