@@ -22,10 +22,10 @@
 import math
 import sys
 from typing import List
-from critical_op import distance_op
-from get_input import get_input
-from point import Point
-from closest_pairs import closest_pairs, brute_force
+from critical_op import distance_op  # pylint: disable=wrong-import-position, no-name-in-module # noqa
+from get_input import get_input  # pylint: disable=wrong-import-position, no-name-in-module # noqa
+from point import Point  # pylint: disable=wrong-import-position, no-name-in-module # noqa
+from closest_pairs import closest_pairs, brute_force  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 
 
 def check(oracle, to_check) -> bool:

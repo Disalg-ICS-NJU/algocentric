@@ -24,9 +24,9 @@ import sys
 from typing import List
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from point import Point
-from get_input import get_input
-from critical_op import distance_op
+from point import Point  # pylint: disable=wrong-import-position, no-name-in-module # noqa
+from get_input import get_input  # pylint: disable=wrong-import-position, no-name-in-module # noqa
+from critical_op import distance_op  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 
 
 def brute_force(array: List[Point]) -> float:
