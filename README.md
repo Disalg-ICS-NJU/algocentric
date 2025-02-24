@@ -24,6 +24,7 @@
 [最小生成树Prim算法](./prim_mst/)  
 [矩阵相乘](./matrix_mult/)  
 [有向图单源最短路](./dijkstra/)
+[寻找最近点对](./closest_pairs/)
 
 ## 授课资源
 
