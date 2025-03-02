@@ -24,17 +24,17 @@ import subprocess
 import sys
 from typing import List
 from matplotlib import pyplot as plt
+from get_input import get_input  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 from closest_pairs import Point, brute_force, divide_and_conquer, closest_pairs, \
     DistanceOP  # pylint: disable=wrong-import-position, no-name-in-module # noqa
-from get_input import get_input  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 
 
 def generate_and_get_input(num: int) -> List[Point]:
     tmp_file = "tmp"
     # 重定向标准输出到临时文件
-    with open(tmp_file, "w") as f:
-        subprocess.run(["python3", "generator.py", "-n", str(num)], stdout=f, text=True)
-    with open(tmp_file, "r") as f:
+    with open(tmp_file, "w", encoding="utf-8") as f:
+        subprocess.run(["python3", "generator.py", "-n", str(num)], stdout=f, text=True, check=True)
+    with open(tmp_file, "r", encoding="utf-8") as f:
         sys.stdin = f
         res = get_input()
     os.remove(tmp_file)
