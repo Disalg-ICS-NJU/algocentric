@@ -17,7 +17,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pylint
+        pip install pylint matplotlib
     - name: Analysing the code with pylint
       run: |
         env PYTHONPATH=sort:frequent_element:prim_mst:matrix_mult:dijkstra:closest_pairs pylint --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring --disable=duplicate-code $(git ls-files '*.py')

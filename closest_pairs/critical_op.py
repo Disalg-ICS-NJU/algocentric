@@ -112,5 +112,4 @@ class DistanceOP(CriticalOP):
         self.incr_op_count()
         return elem_a.distance(elem_b)
 
-
-distance_op = DistanceOP()
+# 以往的代码是在本文件中创建一个全局的 *OP 实例, 但由于今后需要对比不同实现的关键操作次数, 所以创建 *OP 实例的职责交给不同的实现

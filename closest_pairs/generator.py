@@ -43,7 +43,7 @@ def get_random_input(num_points: int, x_range: tuple, y_range: tuple) -> list:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Generate random test inputs")
-    parser.add_argument('-n', dest='num_points', type=int, default=10,
+    parser.add_argument('-n', dest='num_points', type=int, default=100,
                         help="number of points")
     parser.add_argument('-x', dest='min_x', type=int, default=-10000,
                         help="min x value")

@@ -22,7 +22,7 @@
 import math
 import sys
 from typing import List
-from critical_op import distance_op  # pylint: disable=wrong-import-position, no-name-in-module # noqa
+from critical_op import DistanceOP  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 from get_input import get_input  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 from point import Point  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 from closest_pairs import closest_pairs, brute_force  # pylint: disable=wrong-import-position, no-name-in-module # noqa
@@ -51,15 +51,15 @@ def closest_pairs_check(array: List[Point], to_check: float) -> bool:
         Returns:
             to_check是否为正确的点对之间的最小距离
     '''
-    return math.isclose(brute_force(array), to_check, rel_tol=1e-9)
+    return math.isclose(brute_force(array, DistanceOP())[0], to_check, rel_tol=1e-9)
 
 
 if __name__ == '__main__':
     testcase = get_input()
-    result = closest_pairs(testcase)
+    (result, cnt) = closest_pairs(testcase)
     if closest_pairs_check(testcase, result):
         print('PASS')
-        print('Critical op counts:', distance_op.get_op_count())
+        print('Critical op counts:', cnt)
     else:
         print('FAIL')
         print('Input :', testcase)
