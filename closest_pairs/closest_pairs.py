@@ -26,10 +26,10 @@ from typing import List
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from point import Point  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 from get_input import get_input  # pylint: disable=wrong-import-position, no-name-in-module # noqa
-from critical_op import distance_op  # pylint: disable=wrong-import-position, no-name-in-module # noqa
+from critical_op import DistanceOP  # pylint: disable=wrong-import-position, no-name-in-module # noqa
 
 
-def brute_force(array: List[Point]) -> float:
+def brute_force(array: List[Point], distance_op: DistanceOP) -> (float, int):
     # O(n^2)的暴力算法, 枚举每一个可能的点对距离
     n = len(array)
     min_distance = float('inf')
@@ -37,18 +37,18 @@ def brute_force(array: List[Point]) -> float:
         for j in range(i + 1, n):
             dist = distance_op(array[i], array[j])
             min_distance = min(min_distance, dist)
-    return min_distance
+    return min_distance, distance_op.get_op_count()
 
 
-def closest_pairs_recursion(array: List[Point]) -> float:
+def closest_pairs_recursion(array: List[Point], distance_op: DistanceOP) -> float:
     n = len(array)
     if n <= 3:
         # 对于n<=3的情况, 使用暴力算法直接求解
-        return brute_force(array)
+        return brute_force(array, distance_op)[0]
     mid = n // 2
     mid_point = array[mid]
-    l = closest_pairs_recursion(array[:mid])
-    r = closest_pairs_recursion(array[mid:])
+    l = closest_pairs_recursion(array[:mid], distance_op)
+    r = closest_pairs_recursion(array[mid:], distance_op)
     delta = min(l, r)
     ans = delta
     # 处理跨越中间点的情形
@@ -63,12 +63,23 @@ def closest_pairs_recursion(array: List[Point]) -> float:
     return ans
 
 
-def closest_pairs(array: List[Point]) -> float:
+def divide_and_conquer(array: List[Point]) -> (float, int):
     array = sorted(array, key=lambda p: p.x)
-    return closest_pairs_recursion(array)
+    distance_op = DistanceOP()
+    return closest_pairs_recursion(array, distance_op), distance_op.get_op_count()
+
+
+def closest_pairs(array: List[Point]) -> (float, int):
+    # 你可以修改 closet_pairs 为你的实现, 但请保持函数签名不变
+    # 第一个返回值返回点对之间的最小距离, 第二个返回值返回关键操作(求距离)的次数
+    # 求取两个 Point 之间的距离时, 请调用 distance_op 方法, 例如:
+    # distance_op = DistanceOP()
+    # dist = distance_op(p, q)
+    # 由于 DistanceOP 实例内部维护了计数值, 因此请确保在你的实现中只创建了一个 DistanceOP 实例
+    return divide_and_conquer(array)
 
 
 if __name__ == '__main__':
     testcase = get_input()
     result = closest_pairs(testcase)
-    print(result)
+    print(result[0])
