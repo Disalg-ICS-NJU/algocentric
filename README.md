@@ -28,4 +28,4 @@
 
 ## 授课资源
 
-[《算法设计与分析》课程材料](https://zhuanlan.zhihu.com/p/106049035)
+[《算法设计与分析讲义》：授课讲义，授课同步更新中](https://github.com/alg-nju/lada)
